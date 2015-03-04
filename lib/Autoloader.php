@@ -19,7 +19,7 @@ class Autoloader
 	 */
 	public static function register($path = null)
 	{
-		self::$_path = $path ? $path : dirname(__FILE__);	
+		self::$_path = $path ? $path : dirname(__FILE__);
 		return spl_autoload_register(array('\\' . self::getNamespace() . '\\Autoloader', 'load'), true, true);
 	}
 

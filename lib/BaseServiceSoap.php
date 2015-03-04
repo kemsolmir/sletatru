@@ -90,15 +90,25 @@ class BaseServiceSoap extends BaseService
 		if (!empty($this->wsdl) && $this->_client === null) {
 			if ($this->catchExceptions) {
 				try {
-					$this->_client = new SoapClient($this->wsdl, $this->soapOptions);
+					$this->_client = $this->createSoapClient($this->wsdl, $this->soapOptions);
 				} catch (Exception $e) {
 					$this->addError($e->getMessage());
 				}
 			} else {
-				$this->_client = new SoapClient($this->wsdl, $this->soapOptions);
-			}			
+				$this->_client = $this->createSoapClient($this->wsdl, $this->soapOptions);
+			}
 		}
 		return $this->_client;
+	}
+
+	/**
+	 * @param string $wsdl
+	 * @param array $soapOptions
+	 * @return \SoapClient
+	 */
+	protected function createSoapClient($wsdl, array $soapOptions = array())
+	{
+		return new \SoapClient($wsdl, $soapOptions);
 	}
 
 	/**
