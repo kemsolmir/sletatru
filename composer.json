@@ -1,0 +1,20 @@
+{
+	"name": "marvin255/sletatru",
+	"description": "Component sletat.ru web service",
+	"version": "0.0.1",
+	"type": "library",
+	"keywords": ["php", "soap", "service"],
+	"license": "MIT",
+	"require": {
+		"php": ">=5.3.2"
+	},
+	"autoload": {
+		"psr-4": { "sletatru\\": "lib/" }
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/marvin255/sletatru"
+		}
+	]
+}
