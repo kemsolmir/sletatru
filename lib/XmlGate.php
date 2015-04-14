@@ -65,7 +65,50 @@ class XmlGate extends BaseServiceSoap
 		if (!empty($towns)) {
 			$params[0]['towns'] = $towns;
 		}
-		return $this->parseDictionary('GetHotelStars', 'HotelStar', $params);
+		return $this->parseDictionary('GetHotelStars', 'HotelStars', $params);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function GetMeals()
+	{
+		return $this->parseDictionary('GetMeals', 'Meal');
+	}
+
+	/**
+	 * @return array
+	 */
+	public function GetTourOperators($townFromId = null, $countryId = null)
+	{
+		$params = array();
+		if (!empty($townFromId)) {
+			$params[0]['townFromId'] = $townFromId;
+		}
+		if (!empty($countryId)) {
+			$params[0]['countryId'] = $countryId;
+		}
+		return $this->parseDictionary('GetTourOperators', 'TourOperator', $params);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function GetHotels($countryId, $towns = null, $stars = null, $filter = null, $count = -1)
+	{
+		$params = array();
+		$params[0]['countryId'] = $countryId;
+		$params[0]['count'] = (int) $count;
+		if (!empty($towns) && is_array($towns)) {
+			$params[0]['towns'] = $towns;
+		}
+		if (!empty($stars) && is_array($stars)) {
+			$params[0]['stars'] = $stars;
+		}
+		if ($filter !== null) {
+			$params[0]['stars'] = trim($filter);
+		}
+		return $this->parseDictionary('GetHotels', 'Hotel', $params);
 	}
 
 
