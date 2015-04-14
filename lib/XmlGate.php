@@ -79,8 +79,30 @@ class XmlGate extends BaseServiceSoap
 		$res = $this->doSoapCall($method, $params);
 		$resName = $method . 'Result';
 		if (!empty($res->$resName->$item)) {
-			foreach ($res->$resName->$item as $li) {
-				$return[] = (array) $li;
+			if (is_array($res->$resName->$item)) {
+				foreach ($res->$resName->$item as $li) {
+					$return[] = $this->serviceResponceToArray($li);
+				}
+			} else {
+				$return[] = $this->serviceResponceToArray($res->$resName->$item);
+			}	
+		}
+		return $return;
+	}
+
+	/**
+	 * @param mixed $array
+	 * @return array
+	 */
+	protected function serviceResponceToArray($array)
+	{
+		$return = array();
+		$toArray = (array) $array;
+		foreach ($toArray as $key => $value) {
+			if ($value === 'NIL') {
+				$return[$key] = null;
+			} else {
+				$return[$key] = $value;
 			}
 		}
 		return $return;
