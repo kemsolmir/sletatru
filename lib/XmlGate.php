@@ -19,6 +19,117 @@ class XmlGate extends BaseServiceSoap
 	 * @var string
 	 */
 	public $password = '';
+
+
+	/**
+	 * @param int $countryId
+	 * @param int $cityFromId
+	 * @param array $cities
+	 * @param array $meals
+	 * @param array $stars
+	 * @param array $hotels
+	 * @param int $adults
+	 * @param int $kids
+	 * @param array $kidsAges
+	 * @param int $nightsMin
+	 * @param int $nightsMax
+	 * @param int $priceMin
+	 * @param int $priceMax
+	 * @param string $currencyAlias
+	 * @param string $departFrom
+	 * @param string $departTo
+	 * @param bool $hotelIsNotInStop
+	 * @param bool $hasTickets
+	 * @param bool $ticketsIncluded
+	 * @param bool $useFilter
+	 * @param array $f_to_id
+	 * @param bool $includeDescriptions
+	 * @param int $cacheMode
+	 */
+	public function CreateRequest(
+		$countryId, 
+		$cityFromId, 
+		$cities = null, 
+		$meals = null, 
+		$stars = null, 
+		$hotels = null,
+		$adults = 2,
+		$kids = 0,
+		$kidsAges = null,
+		$nightsMin = 7,
+		$nightsMax = 7,
+		$priceMin = null,
+		$priceMax = null,
+		$currencyAlias = 'RUB',
+		$departFrom = null,
+		$departTo = null,
+		$hotelIsNotInStop = false,
+		$hasTickets = false,
+		$ticketsIncluded = false,
+		$useFilter = false,
+		array $f_to_id = null,
+		$includeDescriptions = false,
+		$cacheMode = 0
+	){
+		$params = array();
+		if (!empty($countryId)) {
+			$params[0]['countryId'] = $countryId;
+		}
+		if (!empty($cityFromId)) {
+			$params[0]['cityFromId'] = $cityFromId;
+		}
+		if (is_array($cities) && !empty($cities)) {
+			$params[0]['cities'] = $cities;
+		}
+		if (is_array($meals) && !empty($meals)) {
+			$params[0]['meals'] = $meals;
+		}
+		if (is_array($stars) && !empty($stars)) {
+			$params[0]['stars'] = $stars;
+		}
+		if (is_array($hotels) && !empty($hotels)) {
+			$params[0]['hotels'] = $hotels;
+		}
+		if (($adults = (int) $adults) > 0) {
+			$params[0]['adults'] = $adults;
+		}
+		if (($kids = (int) $kids) > 0) {
+			$params[0]['kids'] = $kids;
+		}
+		if (is_array($kidsAges) && !empty($kidsAges)) {
+			$params[0]['kidsAges'] = $kidsAges;
+		}
+		if (($nightsMin = (int) $nightsMin) > 0) {
+			$params[0]['nightsMin'] = $nightsMin;
+		}
+		if (($nightsMax = (int) $nightsMax) > 0) {
+			$params[0]['nightsMax'] = $nightsMax;
+		}
+		if (($priceMin = (int) $priceMin) > 0) {
+			$params[0]['priceMin'] = $priceMin;
+		}
+		if (($priceMax = (int) $priceMax) > 0) {
+			$params[0]['priceMax'] = $priceMax;
+		}
+		if (!empty($currencyAlias)) {
+			$params[0]['currencyAlias'] = $currencyAlias;
+		}
+		if (!empty($departFrom) && ($time = strtotime($departFrom))) {
+			$params[0]['departFrom'] = date('d.m.Y', $time);
+		}
+		if (!empty($departTo) && ($time = strtotime($departTo))) {
+			$params[0]['departTo'] = date('d.m.Y', $time);
+		}
+		$params[0]['hotelIsNotInStop'] = (bool) $hotelIsNotInStop;
+		$params[0]['hasTickets'] = (bool) $hasTickets;
+		$params[0]['ticketsIncluded'] = (bool) $ticketsIncluded;
+		$params[0]['useFilter'] = (bool) $useFilter;
+		if (is_array($f_to_id) && !empty($f_to_id)) {
+			$params[0]['f_to_id'] = $f_to_id;
+		}
+		$params[0]['includeDescriptions'] = (bool) $includeDescriptions;
+		$params[0]['cacheMode'] = (int) $cacheMode;
+	}
 	
 
 	/**
@@ -30,6 +141,7 @@ class XmlGate extends BaseServiceSoap
 	}
 
 	/**
+	 * @param string $townFromId
 	 * @return array
 	 */
 	public function GetCountries($townFromId = null)
@@ -42,6 +154,7 @@ class XmlGate extends BaseServiceSoap
 	}
 
 	/**
+	 * @param string $countryId
 	 * @return array
 	 */
 	public function GetCities($countryId)
@@ -54,6 +167,8 @@ class XmlGate extends BaseServiceSoap
 	}
 
 	/**
+	 * @param string $countryId
+	 * @param array $towns
 	 * @return array
 	 */
 	public function GetHotelStars($countryId, array $towns = null)
@@ -77,6 +192,8 @@ class XmlGate extends BaseServiceSoap
 	}
 
 	/**
+	 * @param string $townFromId
+	 * @param string $countryId
 	 * @return array
 	 */
 	public function GetTourOperators($townFromId = null, $countryId = null)
@@ -92,6 +209,11 @@ class XmlGate extends BaseServiceSoap
 	}
 
 	/**
+	 * @param string $countryId
+	 * @param array $towns
+	 * @param array $stars
+	 * @param string $filter
+	 * @param int $count
 	 * @return array
 	 */
 	public function GetHotels($countryId, $towns = null, $stars = null, $filter = null, $count = -1)
