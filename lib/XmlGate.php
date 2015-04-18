@@ -45,6 +45,7 @@ class XmlGate extends BaseServiceSoap
 	 * @param array $f_to_id
 	 * @param bool $includeDescriptions
 	 * @param int $cacheMode
+	 * @return string
 	 */
 	public function CreateRequest(
 		$countryId, 
@@ -129,6 +130,56 @@ class XmlGate extends BaseServiceSoap
 		}
 		$params[0]['includeDescriptions'] = (bool) $includeDescriptions;
 		$params[0]['cacheMode'] = (int) $cacheMode;
+
+		$res = $this->doSoapCall('CreateRequest', $params);
+		return !empty($res->CreateRequestResult) ? $res->CreateRequestResult : null;
+	}
+
+
+	/**
+	 * @param string $requestId
+	 */
+	public function GetRequestState($requestId)
+	{
+		$params[0]['requestId'] = $requestId;
+		return $this->parseDictionary('GetRequestState', 'OperatorLoadState', $params);
+	}
+
+	/**
+	 * @param string $requestId
+	 */
+	public function GetRequestResult($requestId)
+	{
+		$params[0]['requestId'] = $requestId;
+		$res = $this->doSoapCall('GetRequestResult', $params);
+		$return = array();
+		if (!empty($res->GetRequestResultResult)) {
+			if (!empty($res->GetRequestResultResult->HotelCount)) {
+				$return['HotelCount'] = (int) $res->GetRequestResultResult->HotelCount;
+			}
+			$return['OperatorLoadState'] = $this->serviceResponseArrayToArray(
+				$res->GetRequestResultResult,
+				'LoadState',
+				'OperatorLoadState'
+			);
+			$return['OilTaxes'] = $this->serviceResponseArrayToArray(
+				$res->GetRequestResultResult,
+				'OilTaxes',
+				'XmlTourOilTax'
+			);
+			if (!empty($res->GetRequestResultResult->RequestId)) {
+				$return['RequestId'] = (int) $res->GetRequestResultResult->RequestId;
+			}
+			$return['Rows'] = $this->serviceResponseArrayToArray(
+				$res->GetRequestResultResult,
+				'Rows',
+				'XmlTourRecord'
+			);
+			if (!empty($res->GetRequestResultResult->RowsCount)) {
+				$return['RowsCount'] = (int) $res->GetRequestResultResult->RowsCount;
+			}
+		}		
+		return $return;
 	}
 	
 
@@ -243,13 +294,24 @@ class XmlGate extends BaseServiceSoap
 		$return = array();
 		$res = $this->doSoapCall($method, $params);
 		$resName = $method . 'Result';
+		return $this->serviceResponseArrayToArray($res, $resName, $item);
+	}
+
+	/**
+	 * @param \stdClass $res
+	 * @param string $resName
+	 * @param string $item
+	 */
+	protected function serviceResponseArrayToArray($res, $resName, $item)
+	{
+		$return = array();
 		if (!empty($res->$resName->$item)) {
 			if (is_array($res->$resName->$item)) {
 				foreach ($res->$resName->$item as $li) {
-					$return[] = $this->serviceResponceToArray($li);
+					$return[] = $this->serviceResponceItemToArray($li);
 				}
 			} else {
-				$return[] = $this->serviceResponceToArray($res->$resName->$item);
+				$return[] = $this->serviceResponceItemToArray($res->$resName->$item);
 			}	
 		}
 		return $return;
@@ -259,7 +321,7 @@ class XmlGate extends BaseServiceSoap
 	 * @param mixed $array
 	 * @return array
 	 */
-	protected function serviceResponceToArray($array)
+	protected function serviceResponceItemToArray($array)
 	{
 		$return = array();
 		$toArray = (array) $array;
