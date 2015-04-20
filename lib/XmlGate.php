@@ -181,6 +181,27 @@ class XmlGate extends BaseServiceSoap
 		}		
 		return $return;
 	}
+
+
+	/**
+	 * @param string $hotelId
+	 * @param string $cssStylesheet
+	 * @return array
+	 */
+	public function GetHotelInformation($hotelId, $cssStylesheet = null)
+	{
+		$params[0]['hotelId'] = $hotelId;
+		if (!empty($cssStylesheet)) {
+			$params[0]['cssStylesheet'] = $cssStylesheet;
+		}
+		$res = $this->doSoapCall('GetHotelInformation', $params);
+		$return = array();
+		if (!empty($res->GetHotelInformationResult)) {
+			$return = (array) $res->GetHotelInformationResult;
+			$return['ImageUrls'] = !empty($return['ImageUrls']->string) && is_array($return['ImageUrls']->string) ? $return['ImageUrls']->string : array();
+		}
+		return $return;
+	}
 	
 
 	/**
