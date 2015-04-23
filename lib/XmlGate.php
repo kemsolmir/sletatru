@@ -81,6 +81,8 @@ class XmlGate extends BaseServiceSoap
 		}
 		if (is_array($cities) && !empty($cities)) {
 			$params[0]['cities'] = $cities;
+		} elseif (!empty($cities)) {
+			$params[0]['cities'] = array($cities);
 		}
 		if (is_array($meals) && !empty($meals)) {
 			$params[0]['meals'] = $meals;
@@ -90,6 +92,8 @@ class XmlGate extends BaseServiceSoap
 		}
 		if (is_array($hotels) && !empty($hotels)) {
 			$params[0]['hotels'] = $hotels;
+		} elseif (!empty($hotels)) {
+			$params[0]['hotels'] = array($hotels);
 		}
 		if (($adults = (int) $adults) > 0) {
 			$params[0]['adults'] = $adults;
