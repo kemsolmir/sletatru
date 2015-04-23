@@ -188,6 +188,53 @@ class XmlGate extends BaseServiceSoap
 
 
 	/**
+	 * @param int $sourceId
+	 * @param int $offerId
+	 * @param int $requestId
+	 */
+	public function ActualizePrice($sourceId, $offerId, $requestId)
+	{
+		$params = array(
+			0 => array(
+				'sourceId' => $sourceId,
+				'offerId' => $offerId,
+				'requestId' => $requestId,
+			),
+		);
+		$res = $this->doSoapCall('ActualizePrice', $params);
+		$return = array();
+		if (!empty($res->ActualizePriceResult)) {
+			if (isset($res->ActualizePriceResult->ErrorMessage)) {
+				$return['ErrorMessage'] = trim($res->ActualizePriceResult->ErrorMessage);
+			}
+			if (isset($res->ActualizePriceResult->IsError)) {
+				$return['IsError'] = (bool) $res->ActualizePriceResult->IsError;
+			}
+			if (isset($res->ActualizePriceResult->IsFound)) {
+				$return['IsFound'] = (bool) $res->ActualizePriceResult->IsFound;
+			}
+			$return['OilTaxes'] = $this->serviceResponseArrayToArray(
+				$res->GetRequestResultResult,
+				'OilTaxes',
+				'XmlTourOilTax'
+			);
+			if (isset($res->ActualizePriceResult->RandomNumber)) {
+				$return['RandomNumber'] = (int) $res->ActualizePriceResult->RandomNumber;
+			}
+			if (isset($res->ActualizePriceResult->SessionId)) {
+				$return['SessionId'] = $res->ActualizePriceResult->SessionId;
+			}
+			if (isset($res->ActualizePriceResult->TourInfo)) {
+				$return['TourInfo'] = $this->serviceResponceItemToArray(
+					$res->ActualizePriceResult->TourInfo
+				);
+			}
+		}
+		return $return;
+	}
+
+
+	/**
 	 * @param string $hotelId
 	 * @param string $cssStylesheet
 	 * @return array
