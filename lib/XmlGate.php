@@ -250,7 +250,42 @@ class XmlGate extends BaseServiceSoap
 		if (!empty($res->GetHotelInformationResult)) {
 			$return = (array) $res->GetHotelInformationResult;
 			$return['ImageUrls'] = !empty($return['ImageUrls']->string) && is_array($return['ImageUrls']->string) ? $return['ImageUrls']->string : array();
+			$fgroups = $this->serviceResponseArrayToArray($res->GetHotelInformationResult, 'HotelFacilities', 'HotelInfoFacilityGroup');
+			$return['HotelFacilities'] = array();
+			foreach ($fgroups as $key => $group) {
+				$arGroup = $this->serviceResponceItemToArray($group);
+				if (!empty($arGroup['Facilities']->HotelInfoFacility)) {
+					if (is_array($arGroup['Facilities']->HotelInfoFacility)) {
+						$arFacility = array();
+						foreach ($group['Facilities']->HotelInfoFacility as $facility) {
+							$arFacility[] = $this->serviceResponceItemToArray($facility);
+						}
+						$arGroup['Facilities'] = $arFacility;
+					} else {
+						$arGroup['Facilities'] = array($this->serviceResponceItemToArray($group['Facilities']->HotelInfoFacility));
+					}
+				} else {
+					$arGroup['Facilities'] = array();
+				}
+				$return['HotelFacilities'][] = $arGroup;
+			}
 		}
+		return $return;
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $count
+	 * @param int $width
+	 * @param int $height
+	 */
+	public function getHotelImageUrl($id, $count = 0, $width = null, $height = null)
+	{
+		$return = 'http://hotels.sletat.ru/i/f/' . intval($id) . '_' . intval($count);
+		if (($width = (int) $width) > 0 && ($height = (int) $height) > 0) {
+			$return .= '_' . $height . '_' . $width;
+		}
+		$return .= '.jpg';
 		return $return;
 	}
 	
