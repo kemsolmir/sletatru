@@ -292,6 +292,16 @@ class XmlGate extends BaseServiceSoap
 		$return .= '.jpg';
 		return $return;
 	}
+
+	/**
+	 * @param int $hotelId
+	 * @return array
+	 */
+	public function GetHotelComments($hotelId)
+	{
+		$params[0]['hotelId'] = (int) $hotelId;
+		$res = $this->doSoapCall('GetHotelComments', $params);
+	}
 	
 
 	/**
