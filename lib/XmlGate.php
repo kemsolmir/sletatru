@@ -3,7 +3,7 @@
 namespace sletatru;
 
 /**
- * Class for a cb RF service
+ * Class for a sletat.ru xml service
  */
 class XmlGate extends BaseServiceSoap
 {
@@ -182,7 +182,7 @@ class XmlGate extends BaseServiceSoap
 			if (!empty($res->GetRequestResultResult->RowsCount)) {
 				$return['RowsCount'] = (int) $res->GetRequestResultResult->RowsCount;
 			}
-		}		
+		}
 		return $return;
 	}
 
@@ -300,7 +300,7 @@ class XmlGate extends BaseServiceSoap
 	public function GetHotelComments($hotelId)
 	{
 		$params[0]['hotelId'] = (int) $hotelId;
-		$res = $this->doSoapCall('GetHotelComments', $params);
+		return $this->parseDictionary('GetHotelComments', 'HotelComment', $params);
 	}
 	
 
