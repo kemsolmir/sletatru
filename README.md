@@ -95,10 +95,10 @@ $xml->config(array(
 Дополнительне методы:
 ---------------------
 
-* `array \cbrfservice\BaseService::getErrors( void )` - возвращает массив ошибок, полученных во время запросов к сервису.
+* `array \sletatru\BaseService::getErrors( void )` - возвращает массив ошибок, полученных во время запросов к сервису.
 
-* `bool \cbrfservice\BaseService::hasErrors( void )` - возвращает истину, если во время выполнения запроса были ошибки.
+* `bool \sletatru\BaseService::hasErrors( void )` - возвращает истину, если во время выполнения запроса были ошибки.
 
-* `void \cbrfservice\BaseService::clearErrors( void )` - очищает список ошибок.
+* `void \sletatru\BaseService::clearErrors( void )` - очищает список ошибок.
 
 * `array \sletatru\XmlGate::getHotelImageUrl( int $id, int $count[, int $width, int $height, int $method] )` - формирует ссылку на фотографию с порядковым номером $count отеля с идентификатором $id, указанной ширины и высоты.
