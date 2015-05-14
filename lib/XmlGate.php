@@ -244,6 +244,30 @@ class XmlGate extends BaseServiceSoap
 		return $return;
 	}
 
+	/**
+	 * @param string $requestId
+	 * @param string $offerId
+	 * @param string $sourceId
+	 * @param string $user
+	 * @param string $email
+	 * @param string $phone
+	 * @param string $info
+	 * @return bool
+	 */
+	public function SaveTourOrder($requestId, $offerId, $sourceId, $user, $email, $phone, $info = null)
+	{
+		$params = array(0 => array(
+			'requestId' => trim($requestId),
+			'offerId' => trim($offerId),
+			'user' => trim($user),
+			'email' => trim($email),
+			'phone' => trim($phone),
+			'info' => $info !== null ? trim($info) : '',
+		));
+		$res = $this->doSoapCall('SaveTourOrder', $params);
+		return !$this->hasErrors();
+	}
+
 
 	/**
 	 * @param string $hotelId
