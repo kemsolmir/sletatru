@@ -139,7 +139,6 @@ class XmlGate extends BaseServiceSoap
 		return !empty($res->CreateRequestResult) ? $res->CreateRequestResult : null;
 	}
 
-
 	/**
 	 * @param string $requestId
 	 */
@@ -184,6 +183,18 @@ class XmlGate extends BaseServiceSoap
 			}
 		}
 		return $return;
+	}
+
+	/**
+	 * @param int $requestId
+	 * @return string
+	 */
+	public function ContinueSearch($requestId)
+	{
+		$params[0]['requestId'] = trim($requestId);
+		$res = $this->doSoapCall('ContinueSearch', $params);
+		//@TODO: fix troubles with this method
+		return $res;
 	}
 
 
@@ -403,6 +414,28 @@ class XmlGate extends BaseServiceSoap
 			$params[0]['stars'] = trim($filter);
 		}
 		return $this->parseDictionary('GetHotels', 'Hotel', $params);
+	}
+
+	/**
+	 * @param string $dptCityId
+	 * @param string $countryId
+	 * @param array $resorts
+	 * @return array
+	 */
+	public function GetTourDates($dptCityId, $countryId, array $resorts = null)
+	{
+		$params = array();
+		$params[0]['dptCityId'] = $dptCityId;
+		$params[0]['countryId'] = $countryId;
+		$params[0]['resorts'] = !empty($resorts) ? $resorts : 0;
+		$res = $this->doSoapCall('GetTourDates', $params);
+		$return = array();
+		if (!empty($res->GetTourDatesResult->Dates->string) && is_array($res->GetTourDatesResult->Dates->string)) {
+			foreach ($res->GetTourDatesResult->Dates->string as $date) {
+				$return[] = $date;
+			}
+		}
+		return $return;
 	}
 
 
