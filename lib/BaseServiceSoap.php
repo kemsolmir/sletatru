@@ -50,6 +50,16 @@ class BaseServiceSoap extends BaseService
 		}
 	}
 
+
+	/**
+	 * @param array $config
+	 */
+	public function config(array $options)
+	{
+		$this->_client = null;
+		return parent::config($options);
+	}
+
 	/**
 	 * @param string $method
 	 * @param array $params
