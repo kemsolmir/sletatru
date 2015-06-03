@@ -92,13 +92,13 @@ $xml->config(array(
 
 Названия и сигнатуры методов совпадают с названиями и сигнатурами методов api. [Подробнее](http://static.sletat.ru/Files/Manual/XML_gate_Search.pdf).
 
-Дополнительне методы:
----------------------
+Дополнительне методы
+--------------------
 
-* `array \sletatru\BaseService::getErrors( void )` - возвращает массив ошибок, полученных во время запросов к сервису.
+* `array \sletatru\XmlGate::getErrors( void )` - возвращает массив ошибок, полученных во время запросов к сервису.
 
-* `bool \sletatru\BaseService::hasErrors( void )` - возвращает истину, если во время выполнения запроса были ошибки.
+* `bool \sletatru\XmlGate::hasErrors( void )` - возвращает истину, если во время выполнения запроса были ошибки.
 
-* `void \sletatru\BaseService::clearErrors( void )` - очищает список ошибок.
+* `void \sletatru\XmlGate::clearErrors( void )` - очищает список ошибок.
 
 * `array \sletatru\XmlGate::getHotelImageUrl( int $id, int $count[, int $width, int $height, int $method] )` - формирует ссылку на фотографию с порядковым номером $count отеля с идентификатором $id, указанной ширины и высоты.
