@@ -225,9 +225,9 @@ class XmlGate extends BaseServiceSoap
 				$return['IsFound'] = (bool) $res->ActualizePriceResult->IsFound;
 			}
 			$return['OilTaxes'] = $this->serviceResponseArrayToArray(
-				$res->GetRequestResultResult,
+				$res->ActualizePriceResult,
 				'OilTaxes',
-				'XmlTourOilTax'
+				'XmlOilTax'
 			);
 			if (isset($res->ActualizePriceResult->RandomNumber)) {
 				$return['RandomNumber'] = (int) $res->ActualizePriceResult->RandomNumber;
