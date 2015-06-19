@@ -1,9 +1,9 @@
 {
 	"name": "marvin255/sletatru",
-	"description": "Component sletat.ru web service",
-	"version": "0.0.1",
+	"description": "Sletat.ru web service",
+	"version": "0.0.5",
 	"type": "library",
-	"keywords": ["php", "soap", "service"],
+	"keywords": ["soap", "sletat.ru"],
 	"license": "MIT",
 	"require": {
 		"php": ">=5.3.2"

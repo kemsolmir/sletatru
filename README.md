@@ -13,20 +13,9 @@ Php обертка для [api sletat.ru(слетать.ру)](http://sletat.ru/
 
 ```javascript
 "require": {
-    "php": ">=5.3.3",
-    "marvin255/sletatru": "dev-master"
+    "marvin255/sletatru": "*"
 }
 ```
-
-И в раздел `repositories`:
-
-```javascript
-"repositories": [
-    {
-        "type": "git",
-        "url": "https://github.com/marvin255/sletatru"
-    }
-]
 ```
 
 **Обычная**
