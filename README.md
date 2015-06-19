@@ -16,7 +16,6 @@ Php обертка для [api sletat.ru(слетать.ру)](http://sletat.ru/
     "marvin255/sletatru": "*"
 }
 ```
-```
 
 **Обычная**
 
