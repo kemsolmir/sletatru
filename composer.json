@@ -1,7 +1,6 @@
 {
 	"name": "marvin255/sletatru",
 	"description": "Sletat.ru web service",
-	"version": "0.0.6",
 	"type": "library",
 	"keywords": ["soap", "sletat.ru"],
 	"license": "MIT",
