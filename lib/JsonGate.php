@@ -151,6 +151,7 @@ class JsonGate extends BaseServiceRest
 					'OriginalMealName' => $hotel[51],
 					'OriginalHtPlaceName' => $hotel[52],
 					'OriginalRoomName' => $hotel[53],
+					'PriceType' => 1,
 				);
 			}
 		}
