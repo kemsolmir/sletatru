@@ -126,6 +126,7 @@ class JsonGate extends BaseServiceRest
 					'SourceName' => $hotel[18],
 					'ResortName' => $hotel[19],
 					'SourceSearchFormUrl' => $hotel[20],
+					'TicketsIncluded' => $hotel[22],
 					'CountryId' => $hotel[30],
 					'CountryName' => $hotel[31],
 					'CityFromId' => $hotel[32],
