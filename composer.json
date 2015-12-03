@@ -2,7 +2,7 @@
 	"name": "marvin255/sletatru",
 	"description": "Sletat.ru web service",
 	"type": "library",
-	"keywords": ["soap", "sletat.ru"],
+	"keywords": ["soap", "rest", "tourism", "api", "sletat.ru"],
 	"license": "MIT",
 	"require": {
 		"php": ">=5.3.2"
