@@ -203,7 +203,7 @@ class XmlGate extends BaseServiceSoap
 	 * @param int $offerId
 	 * @param int $requestId
 	 */
-	public function ActualizePrice($sourceId, $offerId, $requestId)
+	public function ActualizePrice($sourceId, $offerId, $requestId, $login = null, $password = null)
 	{
 		$params = array(
 			0 => array(
@@ -212,6 +212,10 @@ class XmlGate extends BaseServiceSoap
 				'requestId' => $requestId,
 			),
 		);
+		if (!empty($login) && !empty($password)) {
+			$params[0]['login'] = $login;
+			$params[0]['password'] = $password;
+		}
 		$res = $this->doSoapCall('ActualizePrice', $params);
 		$return = array();
 		if (!empty($res->ActualizePriceResult)) {
@@ -238,6 +242,20 @@ class XmlGate extends BaseServiceSoap
 			if (isset($res->ActualizePriceResult->TourInfo)) {
 				$return['TourInfo'] = $this->serviceResponceItemToArray(
 					$res->ActualizePriceResult->TourInfo
+				);
+			}
+			if (isset($res->ActualizePriceResult->ResourceData)) {
+				$return['ResourceData'] = $this->serviceResponseArrayToArray(
+					$res->ActualizePriceResult,
+					'ResourceData',
+					'XmlResourceData'
+				);
+			}
+			if (isset($res->ActualizePriceResult->Resources)) {
+				$return['Resources'] = $this->serviceResponseArrayToArray(
+					$res->ActualizePriceResult,
+					'Resources',
+					'XmlResource'
 				);
 			}
 		}
