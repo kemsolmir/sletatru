@@ -334,10 +334,10 @@ class XmlGate extends BaseServiceSoap
 	 * @param int $method
 	 * @return string
 	 */
-	public function getHotelImageUrl($id, $count = 0, $width = null, $height = null, $method = 1)
+	public function getHotelImageUrl($id, $count = 0, $width = null, $height = null, $method = 1, $isHttps = false)
 	{
 		$type = $width !== null || $height !== null ? 'p' : 'f';
-		$return = 'http://hotels.sletat.ru/i/' . $type . '/' . intval($id) . '_' . intval($count);
+		$return = ($isHttps ? 'https://' : 'http://') . 'hotels.sletat.ru/i/' . $type . '/' . intval($id) . '_' . intval($count);
 		if (($width = (int) $width) > 0 && ($height = (int) $height) > 0) {
 			$return .= '_' . $height . '_' . $width;
 		}
