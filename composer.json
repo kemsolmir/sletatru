@@ -1,5 +1,5 @@
 {
-	"name": "marvin255/sletatru",
+	"name": "kemsolmir/sletatru",
 	"description": "Sletat.ru web service",
 	"type": "library",
 	"keywords": ["soap", "rest", "tourism", "api", "sletat.ru"],
@@ -13,7 +13,7 @@
 	"repositories": [
 		{
 			"type": "git",
-			"url": "https://github.com/marvin255/sletatru"
+			"url": "https://github.com/kemsolmir/sletatru"
 		}
 	]
 }

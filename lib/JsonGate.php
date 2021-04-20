@@ -181,7 +181,8 @@ class JsonGate extends BaseServiceRest
 	 */
 	protected function parseResult($result)
 	{
-		$response = !empty($result['content']) ? reset(json_decode($result['content'], true)) : array();
+		$arResult = !empty($result['content']) ? json_decode($result['content'], true) : array();
+		$response = reset($arResult);
 		if (!empty($response['IsError'])) {
 			$this->addError($response['ErrorMessage']);
 		}

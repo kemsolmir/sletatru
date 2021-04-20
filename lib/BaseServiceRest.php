@@ -88,7 +88,10 @@ class BaseServiceRest extends BaseService
 				$return['Status'] = !empty($matches[1]) ? (int) $matches[1] : '';
 			} else {
 				$arExplode = explode(':', $header, 2);
-				$return[trim($arExplode[0])] = trim($arExplode[1]);
+				
+				if (count($arExplode) > 1) {
+					$return[trim($arExplode[0])] = trim($arExplode[1]);
+				}
 			}
 		}
 		return $return;

@@ -13,7 +13,7 @@ Php обертка для [api sletat.ru(слетать.ру)](http://sletat.ru/
 
 ```javascript
 "require": {
-    "marvin255/sletatru": "*"
+    "kemsolmir/sletatru": "*"
 }
 ```
 
